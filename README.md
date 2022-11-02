@@ -19,3 +19,4 @@ Ham - AI Hub '한국어 SNS'
 Tokenizer - soynlp, keras
 
 ### Model
+![My Image](model.png)
