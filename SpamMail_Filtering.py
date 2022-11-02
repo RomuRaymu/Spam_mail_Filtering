@@ -90,7 +90,7 @@ from soynlp.tokenizer import LTokenizer
 
 # %%
 word_extractor = WordExtractor()
-word_extractor.train(texts['Text']) # Train 그룹의 Text 를 단어로 분리하기 위한 훈련
+word_extractor.train(dataSet['Text']) # Train 그룹의 Text 를 단어로 분리하기 위한 훈련
 word_score_table = word_extractor.extract()
 cohesion_score = {word:score.cohesion_forward for word, score in word_score_table.items()}
 maxscore_tokenizer = MaxScoreTokenizer(scores=cohesion_score)
@@ -98,11 +98,11 @@ maxscore_tokenizer = MaxScoreTokenizer(scores=cohesion_score)
 def soynlp_morphs(contents):
   return ' '.join(maxscore_tokenizer.tokenize(contents)) # 
 
-texts['soynlp_Text'] = texts['Text'].apply(soynlp_morphs)
+dataSet['soynlp_Text'] = dataSet['Text'].apply(soynlp_morphs)
 
 # %%
 # 변환한 문장 중에 중복인 내용 제거
-texts.drop_duplicates(subset=['soynlp_Text'], inplace=True)
+dataSet.drop_duplicates(subset=['soynlp_Text'], inplace=True)
 
 # %%
 # Data 와 Lable 분리 저장
