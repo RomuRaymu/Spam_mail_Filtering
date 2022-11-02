@@ -12,7 +12,7 @@ from keras import backend as K
 
 # %%
 # 스팸 메일 csv Download
-spam_data = pd.read_csv('drive/MyDrive/KIS_KIS.csv')
+spam_data = pd.read_csv('KIS_KIS.csv')
 
 # %%
 # SNS 대화 내역 json Download
@@ -23,7 +23,7 @@ spam_data = pd.read_csv('drive/MyDrive/KIS_KIS.csv')
 
 import json
 
-with open('drive/MyDrive/sample.json', 'r') as j:
+with open('sample.json', 'r') as j:
   chat_contents = json.loads(j.read()) # Json read
 
 chat1 = '' # 1번 화자가 적은 메세지들을 합친 문장
@@ -148,7 +148,7 @@ vocab_size = len(word_to_index) + 1 # 정리한 후의 단어 종류 갯수
 print('메일의 최대 길이 : %d' % max(len(sample) for sample in X_train_encoded))
 print('메일의 평균 길이 : %f' % (sum(map(len, X_train_encoded))/len(X_train_encoded)))
 
-max_len = (int)(sum(map(len, X_train_encoded))/len(X_train_encoded)) + 1 # Text의 최대 길이
+max_len =  max(len(sample) for sample in X_train_encoded) + 1 # Text의 최대 길이
 X_train_padded = pad_sequences(X_train_encoded, maxlen = max_len) # max_len 크기만큼 모든 Text 의 길이 증가 / 증가 된 공간에는 0 추가
 
 # %%
