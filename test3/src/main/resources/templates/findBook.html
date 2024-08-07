@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Find Book</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	$(function() {
+		if($("#price").html() != "" && $("#discountRate").html() != "") {
+			let price = parseInt($("#price").html().split(":")[1]);
+			let discountRate = parseFloat($("#discountRate").html().split(":")[1]);
+		    
+			let discounted = (price - (price * discountRate));
+			$("#discounted").html("Discounted : " + discounted);
+		}
+	});
+</script>
+</head>
+<body>
+	<h1>[ 책 찾기 ]</h1>
+	<form action="find" method="get">
+		<p>
+			ISBN : <input type="text" name="ISBN" required>
+		</p>
+		<input type="submit" value="찾기">
+	</form>
+
+	<div th:if="${book != null}" th:object="${book}">
+		<p th:text="|ISBN : *{getISBN()}|"></p>
+		<p th:text="|Title : *{getTitle()}|"></p>
+		<p th:text="|Author : *{getAuthor()}|"></p>
+		<p th:text="|Publisher : *{getPublisher()}|"></p>
+		<p th:if="${book.getPublishDate() != null}"
+			th:text="|Publish Date : *{getPublishDate()}|"></p>
+		<p id="price" th:if="${book.getPrice() != null}"
+			th:text="|Price : *{getPrice()}|"></p>
+		<p id="discountRate" th:if="*{getDiscountRate() != null}"
+			th:text="|Discount Rate : *{getDiscountRate()}|"></p>
+		<p id="discounted"
+			th:if="*{getPrice() != null and getDiscountRate() != null}">0</p>
+	</div>
+	<p>
+		<a href="return">메인 화면으로</a>
+	</p>
+</body>
+</html>
