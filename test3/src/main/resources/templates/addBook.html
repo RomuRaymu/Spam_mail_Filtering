@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add Book</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	function check() {
+		if ($("#discountRate").val() != "") {
+			if (isNaN(parseFloat($("#discountRate").val())) || parseFloat($("#discountRate").val()).toString() != $("#discountRate").val()
+					|| parseFloat($("#discountRate").val()) > 1 || parseFloat($("#discountRate").val()) < 0) {
+				alert("할인율은 0 이상 1 이하의 소숫점으로 입력해주세요.");
+				$("#discountRate").focus();
+				return false;
+			}
+		}
+
+		if ($("#price").val() != "") {
+			if (isNaN($("#price").val())
+			|| parseFloat($("#price").val()) % 1 != 0) {
+				alert("가격은 0이상의 정수로 입력해주세요.");
+				$("#price").focus();
+				return false;
+			}
+		}
+
+		return true;
+	}
+</script>
+</head>
+<body>
+	<h1>[ 책 등록 ]</h1>
+	<form action="add" method="post" onsubmit="return check()">
+		<p>
+			ISBN : <input type="text" name="ISBN" placeholder="987654321"
+				required>
+		</p>
+		<p>
+			Title : <input type="text" name="title" placeholder="행복한 나날들"
+				required>
+		</p>
+		<p>
+			Author : <input type="text" name="author" placeholder="홍길동" required>
+		</p>
+		<p>
+			Publisher : <input type="text" name="publisher" placeholder="행복출판"
+				required>
+		</p>
+		<p>
+			Publish Date : <input type="date" name="publishDate">
+		</p>
+		<p>
+			Price : <input type="text" id="price" name="price" placeholder="3000">
+		</p>
+		<p>
+			Discount Rate : <input type="text" id="discountRate"
+				name="discountRate" placeholder="0.1">
+		</p>
+		<input type="submit" value="추가">
+	</form>
+
+	<p>
+		<a href="return">메인 화면으로</a>
+	</p>
+</body>
+</html>
